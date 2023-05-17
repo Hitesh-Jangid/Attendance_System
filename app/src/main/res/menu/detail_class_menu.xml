@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/more"
+        android:title="Delete Class"
+        android:contentDescription="more"
+        app:showAsAction="never"
+        >
+
+    </item>
+    <item
+        android:id="@+id/search"
+        android:title="Search Students"
+        android:contentDescription="search"
+        app:showAsAction="never"
+        >
+
+    </item>
+    <item
+        android:id="@+id/delete"
+        android:title="DELETE ATTENDANCE"
+        android:contentDescription="search"
+        app:showAsAction="never"
+        >
+
+    </item>
+    <item
+        android:id="@+id/isHoliday"
+        android:title="Mark Today as Holiday"
+        android:contentDescription="more"
+        app:showAsAction="never"
+        >
+
+    </item>
+</menu>

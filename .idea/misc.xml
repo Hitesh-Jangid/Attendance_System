@@ -1,0 +1,85 @@
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android Projects/AttendanceAppV2/app/src/main/res/layout/activity_home.xml" value="0.1897644927536232" />
+        <entry key="..\:/Android Projects/AttendanceAppV2/app/src/main/res/layout/activity_login.xml" value="0.1897644927536232" />
+        <entry key="..\:/Android Projects/AttendanceAppV2/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android Projects/AttendanceAppV2/app/src/main/res/layout/activity_register.xml" value="0.1897644927536232" />
+        <entry key="..\:/Android Projects/AttendanceAppV2/app/src/main/res/layout/activity_start.xml" value="0.1897644927536232" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/drawable/ic_round_arrow_back_24_dark.xml" value="0.2703125" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_admin.xml" value="0.176" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_class_detail_.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_grade_detail.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_insert_class_.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_insert_grade.xml" value="0.1721014492753623" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_insert_grade_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_reports.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_reports__detail.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_start.xml" value="0.19356300997280146" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_student_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/activity_users_verification.xml" value="0.1852355072463768" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/bottomsheet_student_edit.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/class_adapter.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/grade_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/popup_add_student.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/report_detail_adapter_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/reports_adapter_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/specific_attendance_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/student_attendance_adapter.xml" value="0.1838768115942029" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/layout/user_item.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
+        <entry key="..\:/AndroidStudioProjects/AttendanceAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
+        <entry key="..\:/AndroidStudioProjects/Easy-Attendance-App/app/src/main/res/layout/activity_class_detail_.xml" value="0.1721014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Easy-Attendance-App/app/src/main/res/layout/activity_insert_class_.xml" value="0.19655797101449277" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_admin.xml" value="0.24010416666666667" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_class_detail_.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_grade_detail.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_home.xml" value="0.24010416666666667" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_insert_class_.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_insert_grade.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_insert_grade_detail.xml" value="0.1296875" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_login.xml" value="0.25461613216715256" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_register.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_reports.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_reports__detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/activity_start.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/bottomsheet_student_edit.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/class_adapter.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/content_start.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/fragment_first.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/popup_add_student.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/report_detail_adapter_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/reports_adapter_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/layout/student_attendance_adapter.xml" value="0.536" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/menu/bottom_app_bar.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/menu/detail_class_menu.xml" value="0.25025641025641027" />
+        <entry key="..\:/AndroidStudioProjects/NewAttendanceApp-main/app/src/main/res/menu/only_dot.xml" value="0.25416666666666665" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_class_detail_.xml" value="0.2" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_date_from_to.xml" value="0.25416666666666665" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_reports.xml" value="0.264" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_student_profile.xml" value="0.264" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/activity_users_verification.xml" value="0.253125" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/bottomsheet_student_edit.xml" value="0.13677536231884058" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/popup_add_student.xml" value="0.25416666666666665" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/report_detail_adapter_item.xml" value="0.264" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/reports_adapter_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/layout/user_item.xml" value="0.23731884057971014" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/menu/bottom_app_bar.xml" value="0.253125" />
+        <entry key="..\:/AttendanceAppV2/app/src/main/res/menu/detail_class_menu.xml" value="0.253125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

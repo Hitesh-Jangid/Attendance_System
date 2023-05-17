@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.hiteshjangid.attendance.InsertGradeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.hiteshjangid.attendance.ui.gradeDetail.GradeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.hiteshjangid.attendance.ui.grade.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.hiteshjangid.attendance.Insert_Grade_Activity"
+            android:exported="true" />
+        <activity
+            android:name="com.hiteshjangid.attendance.AdminActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="com.hiteshjangid.attendance.StartActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.hiteshjangid.attendance.StudentProfile"
+            android:exported="true"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name="com.hiteshjangid.attendance.ui.reportDetail.Reports_Detail_Activity"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name="com.hiteshjangid.attendance.Reports_Activity"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name="com.hiteshjangid.attendance.ClassDetail_Activity"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name="com.hiteshjangid.attendance.Insert_class_Activity"
+            android:theme="@style/AppTheme2" />
+        <activity android:name="com.hiteshjangid.attendance.ui.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
