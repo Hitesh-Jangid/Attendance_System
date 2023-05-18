@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+
 public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNewAdapter.ViewHolder> {
 
     Context mContext;
@@ -61,7 +62,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
         holder.student_regNo.setText(students_list.getRegNo_student());
 
         checkAttendance(holder, students_list);
-
 
         FirebaseDatabase.getInstance().getReference("Attendance_Reports")
                 .child(date + students_list.getClass_id())
@@ -175,6 +175,7 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
 
 
     }
+
 
     private void checkAttendance(ViewHolder holder, Students_List students_list) {
         String child2 = students_list.getRegNo_student() + students_list.getName_student();

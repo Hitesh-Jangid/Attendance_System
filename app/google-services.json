@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "531713303996",
-    "project_id": "attendance-manager-600a1",
-    "storage_bucket": "attendance-manager-600a1.appspot.com"
+    "project_number": "306899418205",
+    "firebase_url": "https://attendance-system-2196a-default-rtdb.firebaseio.com",
+    "project_id": "attendance-system-2196a",
+    "storage_bucket": "attendance-system-2196a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:531713303996:android:0930da34bf1fb4740bf7b9",
+        "mobilesdk_app_id": "1:306899418205:android:419419a0c6bc9134b821b4",
         "android_client_info": {
           "package_name": "com.hiteshjangid.attendance"
         }
       },
       "oauth_client": [
         {
-          "client_id": "531713303996-vp1hpiecpof28pkmk6tv8iqkt7pasl6i.apps.googleusercontent.com",
+          "client_id": "306899418205-u9fvrktl8cfngkvan88984gdd6oc82q8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChSqZvPjTHjrd1okQvI1ItLQmusZIDVbs"
+          "current_key": "AIzaSyB42Lfv5E98qnvdtX718KSS6kcv4bYUBfk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "531713303996-vp1hpiecpof28pkmk6tv8iqkt7pasl6i.apps.googleusercontent.com",
+              "client_id": "306899418205-u9fvrktl8cfngkvan88984gdd6oc82q8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
