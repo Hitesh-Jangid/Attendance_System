@@ -8,6 +8,7 @@ public class Attendance_Students_List {
     String classID;
     String date;
     String unique_ID;
+    private Object status;
 
     public Attendance_Students_List() {
     }
@@ -77,4 +78,5 @@ public class Attendance_Students_List {
     public void setUnique_ID(String unique_ID) {
         this.unique_ID = unique_ID;
     }
+
 }

@@ -3,13 +3,14 @@ package com.hiteshjangid.attendance.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.Gravity;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.util.Pair;
@@ -23,9 +24,9 @@ import java.util.List;
 
 public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.ViewHolder> {
 
-    Context mContext;
-    List<Grade_Names> gradeNamesList;
-    public CardView cardView;
+    private Context mContext;
+    private List<Grade_Names> gradeNamesList;
+    private CardView cardView;
 
     public GradeDetailAdapter(Context mContext, List<Grade_Names> gradeNamesList) {
         this.mContext = mContext;
@@ -36,7 +37,7 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_adapter, parent, false);
-        return new GradeDetailAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
         Grade_Names grade_names = gradeNamesList.get(position);
         holder.class_name.setVisibility(View.GONE);
         holder.subject_name.setText(grade_names.getName_grade());
-        holder.subject_name.setGravity(1);
+        holder.subject_name.setGravity(View.TEXT_ALIGNMENT_CENTER);
         holder.total_students.setVisibility(View.GONE);
 
         // Convert 100dp to pixels
@@ -57,33 +58,24 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
         holder.class_name.setGravity(Gravity.CENTER);
         holder.total_students.setGravity(Gravity.CENTER);
 
-
         if (grade_names.getPosition_bg().equals("2")) {
-            // Define the gradient color array
             int[] colors = {0xFF33CCFF, 0xFFFF99CC};
             GradientDrawable gradientDrawable = new GradientDrawable(
-            GradientDrawable.Orientation.BL_TR, colors);
+                    GradientDrawable.Orientation.BL_TR, colors);
             gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
             gradientDrawable.setGradientCenter(0.5f, 0.5f);
             gradientDrawable.setGradientRadius(1);
-            // Set the background with the gradient
             holder.frameLayout.setBackground(gradientDrawable);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                intent.putExtra("theme", gradeNamesList.get(holder.getAdapterPosition()).getPosition_bg());
-                intent.putExtra("gradeDetailName", gradeNamesList.get(holder.getAdapterPosition()).getName_grade());
-                intent.putExtra("gradeDetailroom_ID", gradeNamesList.get(holder.getAdapterPosition()).getId());
-                Pair<View, String> p1 = Pair.create((View) cardView, "ExampleTransition");
-                // ActivityOptionsCompat optionsCompat = makeSceneTransitionAnimation(MainActivity.class, p1);
-                view.getContext().startActivity(intent);
-                //Toast.makeText(mContext, ""+ Common.currentClassName, Toast.LENGTH_SHORT).show();
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), MainActivity.class);
+            intent.putExtra("theme", gradeNamesList.get(holder.getAdapterPosition()).getPosition_bg());
+            intent.putExtra("gradeDetailName", gradeNamesList.get(holder.getAdapterPosition()).getName_grade());
+            intent.putExtra("gradeDetailroom_ID", gradeNamesList.get(holder.getAdapterPosition()).getId());
+            Pair<View, String> p1 = Pair.create(holder.cardView, "ExampleTransition");
+            view.getContext().startActivity(intent);
         });
-
     }
 
     @Override
@@ -91,14 +83,13 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
         return gradeNamesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView class_name;
         public TextView subject_name;
         public TextView total_students;
         public ImageView imageView_bg;
         public RelativeLayout frameLayout;
         public CardView cardView;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,7 +99,6 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
             frameLayout = itemView.findViewById(R.id.frame_bg);
             cardView = itemView.findViewById(R.id.cardView_adapter);
             total_students = itemView.findViewById(R.id.totalStudents_adapter);
-
         }
     }
 }

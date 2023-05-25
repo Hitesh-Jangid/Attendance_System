@@ -1,6 +1,5 @@
 package com.hiteshjangid.attendance.excel;
 
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,33 +13,23 @@ import java.util.List;
 
 public class ExportGrade {
 
-
-    public static void export(String GradeName, String date) {
+    public static void export(String gradeName, String date) {
         try {
-
             FirebaseDatabase.getInstance().getReference("Classes")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") List<String> list = new ArrayList<>();
-                            List<String> list1 = new ArrayList<>();
+                            List<String> classNames = new ArrayList<>();
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                Class_Names class_names = dataSnapshot.getValue(Class_Names.class);
-                                assert class_names != null;
-                                if (class_names.getGradeType().equals(GradeName)) {
-                                    list.add(class_names.getGradeType());
-                                    list1.add(class_names.getName_class() + class_names.getName_subject());
+                                Class_Names classNamesModel = dataSnapshot.getValue(Class_Names.class);
+                                if (classNamesModel != null && classNamesModel.getGradeType().equals(gradeName)) {
+                                    classNames.add(classNamesModel.getName_class() + classNamesModel.getName_subject());
                                 }
-
-
                             }
 
-                            for (int l = 0; l < list1.size(); l++) {
-                                String className = list1.get(l);
+                            for (String className : classNames) {
                                 ExcelExporter.export(date, className, "");
                             }
-
                         }
 
                         @Override
@@ -53,5 +42,4 @@ public class ExportGrade {
             e.printStackTrace();
         }
     }
-
 }

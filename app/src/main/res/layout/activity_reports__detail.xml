@@ -92,18 +92,6 @@
 
 
     </LinearLayout>
-
-            <Button
-                android:id="@+id/exportexcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:background="@drawable/button_back"
-                android:text="Export excel"
-                android:layout_gravity="right"/>
-
             <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_reports_detail"
         android:focusable="false"

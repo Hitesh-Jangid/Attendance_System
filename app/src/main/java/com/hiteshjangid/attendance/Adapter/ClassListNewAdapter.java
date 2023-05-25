@@ -1,7 +1,5 @@
 package com.hiteshjangid.attendance.Adapter;
 
-import static androidx.core.app.ActivityOptionsCompat.makeSceneTransitionAnimation;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,12 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapter.ViewHolder>{
+public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapter.ViewHolder> {
 
-    Context mContext;
-    List<Class_Names> classNamesList;
-    public CardView cardView;
-    public Activity mActivity;
+    private Context mContext;
+    private List<Class_Names> classNamesList;
+    private Activity mActivity;
 
     public ClassListNewAdapter(Context mContext, List<Class_Names> classNamesList) {
         this.mContext = mContext;
@@ -47,47 +44,39 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_adapter, parent, false);
-        return new ClassListNewAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Class_Names classNames = classNamesList.get(position);
-        numberOfStudent(holder.total_students,classNames);
+        numberOfStudent(holder.total_students, classNames);
         holder.class_name.setText(classNames.getName_class());
         holder.subject_name.setText(classNames.getName_subject());
 
         if (classNames.getPosition_bg().equals("0")) {
-            //holder.imageView_bg.setImageResource(R.drawable.asset_bg_white);
             int[] colors = {0xFFFDEB71, 0xFFF8D800};
             GradientDrawable gradientDrawable = new GradientDrawable(
                     GradientDrawable.Orientation.BL_TR, colors);
             gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
             gradientDrawable.setGradientCenter(0.5f, 0.5f);
             gradientDrawable.setGradientRadius(1);
-            // Set the background with the gradient
             holder.frameLayout.setBackground(gradientDrawable);
-            holder.subject_name.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.black));
-            holder.class_name.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.text_color_secondary));
-            holder.total_students.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.text_color_secondary));
+            holder.subject_name.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.class_name.setTextColor(mContext.getResources().getColor(R.color.text_color_secondary));
+            holder.total_students.setTextColor(mContext.getResources().getColor(R.color.text_color_secondary));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ClassDetail_Activity.class);
-                intent.putExtra("theme", classNamesList.get(holder.getAdapterPosition()).getPosition_bg());
-                intent.putExtra("className", classNamesList.get(holder.getAdapterPosition()).getName_class());
-                Common.currentClassName = classNamesList.get(holder.getAdapterPosition()).getName_class()+classNames.getName_subject();
-                intent.putExtra("subjectName", classNamesList.get(holder.getAdapterPosition()).getName_subject());
-                intent.putExtra("classroom_ID", classNamesList.get(holder.getAdapterPosition()).getId());
-                Pair<View, String> p1 = Pair.create((View) cardView, "ExampleTransition");
-               // ActivityOptionsCompat optionsCompat = makeSceneTransitionAnimation(MainActivity.class, p1);
-                view.getContext().startActivity(intent);
-                //Toast.makeText(mContext, ""+ Common.currentClassName, Toast.LENGTH_SHORT).show();
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ClassDetail_Activity.class);
+            intent.putExtra("theme", classNamesList.get(holder.getAdapterPosition()).getPosition_bg());
+            intent.putExtra("className", classNamesList.get(holder.getAdapterPosition()).getName_class());
+            Common.currentClassName = classNamesList.get(holder.getAdapterPosition()).getName_class() + classNames.getName_subject();
+            intent.putExtra("subjectName", classNamesList.get(holder.getAdapterPosition()).getName_subject());
+            intent.putExtra("classroom_ID", classNamesList.get(holder.getAdapterPosition()).getId());
+            Pair<View, String> p1 = Pair.create(holder.cardView, "ExampleTransition");
+            view.getContext().startActivity(intent);
         });
-
     }
 
     private void numberOfStudent(TextView total_students, Class_Names classNames) {
@@ -95,14 +84,14 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               int count = 0;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                int count = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Students_List students_list = dataSnapshot.getValue(Students_List.class);
-                    if (students_list.getClass_id().equals(classNames.getName_class()+classNames.getName_subject())){
-                        count ++;
+                    if (students_list.getClass_id().equals(classNames.getName_class() + classNames.getName_subject())) {
+                        count++;
                     }
                 }
-                total_students.setText("Total Students : " + count);
+                total_students.setText("Total Students: " + count);
             }
 
             @Override
@@ -117,14 +106,13 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
         return classNamesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView class_name;
         public TextView subject_name;
         public TextView total_students;
         public ImageView imageView_bg;
         public RelativeLayout frameLayout;
         public CardView cardView;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,9 +122,6 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
             frameLayout = itemView.findViewById(R.id.frame_bg);
             cardView = itemView.findViewById(R.id.cardView_adapter);
             total_students = itemView.findViewById(R.id.totalStudents_adapter);
-
         }
     }
-
-
 }

@@ -1,15 +1,5 @@
 package com.hiteshjangid.attendance;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -33,28 +23,43 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.Query;
-import com.hiteshjangid.attendance.Adapter.StudentsListNewAdapter;
-import com.hiteshjangid.attendance.common.Common;
-import com.hiteshjangid.attendance.databinding.ActivityClassDetailBinding;
-import com.hiteshjangid.attendance.model.Attendance_Reports;
-import com.hiteshjangid.attendance.model.Students_List;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.hiteshjangid.attendance.Adapter.StudentsListNewAdapter;
+import com.hiteshjangid.attendance.common.Common;
+import com.hiteshjangid.attendance.databinding.ActivityClassDetailBinding;
+import com.hiteshjangid.attendance.model.Attendance_Reports;
+import com.hiteshjangid.attendance.model.Students_List;
 import com.hiteshjangid.attendance.ui.grade.HomeActivity;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,15 +67,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.TimeZone;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ClassDetail_Activity extends AppCompatActivity {
 
@@ -243,159 +239,120 @@ public class ClassDetail_Activity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select File"), 102);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_SELECT_FILE && resultCode == RESULT_OK && data != null) {
-            // Get the file URI from the intent
-            Uri uri = data.getData();
-
-            try {
-                // Open the Excel file as an input stream
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-
-                // Create a workbook object from the input stream
-                Workbook workbook = WorkbookFactory.create(inputStream);
-
-                // Get the first sheet from the workbook
-                Sheet sheet = workbook.getSheetAt(0);
-
-                // Loop through each row in the sheet
-                for (Row row : sheet) {
-                    // Get the student name and registration number from the row
-                    String studentName = row.getCell(0).getStringCellValue();
-                    String regNo = row.getCell(1).getStringCellValue();
-
-                    // Add the student to the Firebase database
-                    addStudentMethod(studentName, regNo);
+        if (requestCode == 102) {
+            if (resultCode == RESULT_OK) {
+                assert data != null;
+                String filepath = data.getData().getPath();
+                //If excel file then only select the file
+                if (filepath.endsWith(".xlsx") || filepath.endsWith(".xls") || filepath.endsWith(".csv")) {
+                    readFile(data.getData());
                 }
-
-                // Close the input stream
-                inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                //else show the error
+                else {
+                    //Toast.makeText(this,"Please Select an Excel file to upload",Toast.LENGTH_LONG).show();
+                    readFile(data.getData());
+                }
             }
         }
     }
 
+    private void readFile(final Uri file) {
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Uploading");
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
 
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 102) {
-//            if (resultCode == RESULT_OK) {
-//                assert data != null;
-//                String filepath = data.getData().getPath();
-//                //If excel file then only select the file
-//                if (filepath.endsWith(".xlsx") || filepath.endsWith(".xls") || filepath.endsWith(".csv")) {
-//                    readFile(data.getData());
-//                }
-//                //else show the error
-//                else {
-//                    //Toast.makeText(this,"Please Select an Excel file to upload",Toast.LENGTH_LONG).show();
-//                    readFile(data.getData());
-//                }
-//            }
-//        }
-//    }
-//
-//    private void readFile(final Uri file) {
-//        dialog = new ProgressDialog(this);
-//        dialog.setMessage("Uploading");
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.show();
-//        AsyncTask.execute(() -> {
-//
-//            final HashMap<String, Object> parentMap = new HashMap<>();
-//
-//            try {
-//                XSSFWorkbook workbook;
-//                //check for the input from the excel file
-//                try (InputStream inputStream = getContentResolver().openInputStream(file)) {
-//                    workbook = new XSSFWorkbook(inputStream);
-//                }
-//                XSSFSheet sheet = workbook.getSheetAt(0);
-//                int rowsCount = sheet.getPhysicalNumberOfRows();
-//                if (rowsCount > 0) {
-//                    //check rowWise data
-//                    for (int r = 0; r < rowsCount; r++) {
-//                        Row row = sheet.getRow(r);
-//                        if (row.getPhysicalNumberOfCells() == cellCount) {
-//                            //get cell data
-//                            String A = getCellData(row, 0);
-//                            //String B = getCellData(row,1,formulaEvaluator);
-//                            //initialise the hashmap and put value of a and b into it
-//                            HashMap<String, Object> quetionMap = new HashMap<>();
-//                            quetionMap.put("name_student", A);
-//                            quetionMap.put("regNo_student", String.valueOf(r));
-//                            quetionMap.put("id", A + r);
-//                            quetionMap.put("class_id", room_ID);
-//                            //String id= UUID.randomUUID().toString();
-//                            parentMap.put(A + r, quetionMap);
-//
-//                        } else {
-//                            dialog.dismiss();
-//                            Toast.makeText(ClassDetail_Activity.this, "row no. " + (r + 1) + " has incorrect data", Toast.LENGTH_LONG).show();
-//                            return;
-//                        }
-//                    }
-//                    //add the data in firebase if everything is correct
-//                    runOnUiThread(() -> {
-//                        //add the data according to timestamp
-//                        FirebaseDatabase.getInstance().getReference().child("Classes").
-//                                child(class_Name + subject_Name).child("Student_List").updateChildren(parentMap).addOnCompleteListener(task -> {
-//                                    if (task.isSuccessful()) {
-//                                        dialog.dismiss();
-//                                        final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
-//                                        FirebaseDatabase.getInstance().getReference().child("Attendance_Reports").child(date + class_Name + subject_Name).removeValue();
-//                                        submit_btn.setVisibility(View.VISIBLE);
-//                                        edit_btn.setVisibility(View.INVISIBLE);
-//                                        binding.placeholderDetail.setVisibility(View.INVISIBLE);
-//
-//                                        Toast.makeText(ClassDetail_Activity.this, "Uploaded Successfully", Toast.LENGTH_LONG).show();
-//                                    } else {
-//                                        dialog.dismiss();
-//                                        Toast.makeText(ClassDetail_Activity.this, "Something went wrong", Toast.LENGTH_LONG).show();
-//                                    }
-//                                });
-//                    });
-//
-//                }
-//                //show the error if file is empty
-//                else {
-//                    runOnUiThread(() -> {
-//                        dialog.dismiss();
-//                        Toast.makeText(ClassDetail_Activity.this, "File is empty", Toast.LENGTH_LONG).show();
-//
-//                    });
-//                    return;
-//                }
-//            }
-//            //show the error message if failed due to file not found
-//            //show the error message if there is error in input output
-//            catch (final IOException e) {
-//                e.printStackTrace();
-//                runOnUiThread(() -> Toast.makeText(ClassDetail_Activity.this, e.getMessage(), Toast.LENGTH_LONG).show());
-//            }
-//        });
-//    }
-//
-//    private String getCellData(Row row, int cellposition) {
-//        String value = "";
-//        //get cell fom excel sheet
-//        Cell cell = row.getCell(cellposition);
-//        switch (cell.getCellType()) {
-//
-//            case Cell.CELL_TYPE_BOOLEAN:
-//                return value + cell.getBooleanCellValue();
-//            case Cell.CELL_TYPE_NUMERIC:
-//                return value + cell.getNumericCellValue();
-//            case Cell.CELL_TYPE_STRING:
-//                return value + cell.getStringCellValue();
-//            default:
-//                return value;
-//        }
-//    }
+        AsyncTask.execute(() -> {
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(file);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                // Skip the first line (header) of the CSV file
+                String line = reader.readLine();
+
+                final HashMap<String, Object> parentMap = new HashMap<>();
+
+                // Read each line of the CSV file
+                while ((line = reader.readLine()) != null) {
+                    String[] values = line.split(",");
+                    if (values.length >= 2) {
+                        String regNo = values[0].trim().toUpperCase(); // Convert registration number to uppercase
+                        String studentName = values[1].trim();
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Classes")
+                                .child(class_Name + subject_Name).child("Student_List");
+
+                        // Check if student with the same registration number exists
+                        Query query = reference.orderByChild("regNo_student").equalTo(regNo);
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.exists()) {
+                                    // Student does not exist, add to the database
+                                    DatabaseReference newRef = reference.push();
+                                    String studentId = newRef.getKey();
+                                    HashMap<String, Object> hashMap = new HashMap<>();
+                                    hashMap.put("id", studentId);
+                                    hashMap.put("name_student", studentName);
+                                    hashMap.put("regNo_student", regNo);
+                                    hashMap.put("class_id", room_ID);
+                                    newRef.setValue(hashMap);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(ClassDetail_Activity.this,
+                                        "Database Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+
+                inputStream.close();
+
+                runOnUiThread(() -> {
+                    dialog.dismiss();
+                    final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
+                    FirebaseDatabase.getInstance().getReference().child("Attendance_Reports")
+                            .child(date + class_Name + subject_Name).removeValue();
+                    submit_btn.setVisibility(View.VISIBLE);
+                    edit_btn.setVisibility(View.INVISIBLE);
+                    binding.placeholderDetail.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ClassDetail_Activity.this, "Uploaded Successfully", Toast.LENGTH_LONG).show();
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    dialog.dismiss();
+                    Toast.makeText(ClassDetail_Activity.this, "Error reading file: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
+            }
+        });
+    }
+
+
+
+    private String getCellData(Row row, int cellposition) {
+        String value = "";
+        //get cell fom excel sheet
+        Cell cell = row.getCell(cellposition);
+        switch (cell.getCellType()) {
+
+            case Cell.CELL_TYPE_BOOLEAN:
+                return value + cell.getBooleanCellValue();
+            case Cell.CELL_TYPE_NUMERIC:
+                return value + cell.getNumericCellValue();
+            case Cell.CELL_TYPE_STRING:
+                return value + cell.getStringCellValue();
+            default:
+                return value;
+        }
+    }
 
     private void readStudents() {
         FirebaseDatabase.getInstance().getReference("Classes")

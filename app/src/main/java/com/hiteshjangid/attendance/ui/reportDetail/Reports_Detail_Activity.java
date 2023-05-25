@@ -1,5 +1,10 @@
 package com.hiteshjangid.attendance.ui.reportDetail;
 
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -7,15 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.hiteshjangid.attendance.Adapter.Reports_Detail_NewAdapter;
-import com.hiteshjangid.attendance.excel.ExcelExporter;
 import com.hiteshjangid.attendance.R;
 import com.hiteshjangid.attendance.databinding.ActivityReportsDetailBinding;
 
@@ -64,18 +61,7 @@ public class Reports_Detail_Activity extends AppCompatActivity {
 
 
         });
-       // reportsNewAdapter.notifyDataSetChanged();
 
-        binding.exportexcel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, READ_EXST);
-                askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_EXST);
-                ExcelExporter.export(date,classname,subjName);
-
-            }
-        });
     }
 
     private void askForPermission(String permission, Integer requestCode) {

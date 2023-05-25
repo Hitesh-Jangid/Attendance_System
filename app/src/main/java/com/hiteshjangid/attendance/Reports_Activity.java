@@ -1,11 +1,5 @@
 package com.hiteshjangid.attendance;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,13 +8,19 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.hiteshjangid.attendance.Adapter.ReportsNewAdapter;
-import com.hiteshjangid.attendance.model.Attendance_Reports;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hiteshjangid.attendance.Adapter.ReportsNewAdapter;
+import com.hiteshjangid.attendance.model.Attendance_Reports;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -75,7 +75,7 @@ public class Reports_Activity extends AppCompatActivity {
 
 
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 7);
 
         recyclerView.setLayoutManager(gridLayoutManager);
         attendance_reports = new ArrayList<>();
