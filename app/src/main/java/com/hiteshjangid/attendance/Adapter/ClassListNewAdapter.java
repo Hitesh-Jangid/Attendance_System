@@ -34,10 +34,12 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
     private Context mContext;
     private List<Class_Names> classNamesList;
     private Activity mActivity;
+    private DatabaseReference reference;
 
     public ClassListNewAdapter(Context mContext, List<Class_Names> classNamesList) {
         this.mContext = mContext;
         this.classNamesList = classNamesList;
+        this.reference = FirebaseDatabase.getInstance().getReference("Classes");
     }
 
     @NonNull
@@ -80,14 +82,14 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
     }
 
     private void numberOfStudent(TextView total_students, Class_Names classNames) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Classes").child(classNames.getId()).child("Student_List");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference classReference = reference.child(classNames.getId()).child("Student_List");
+        classReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int count = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Students_List students_list = dataSnapshot.getValue(Students_List.class);
-                    if (students_list.getClass_id().equals(classNames.getName_class() + classNames.getName_subject())) {
+                    if (students_list != null && students_list.getClass_id().equals(classNames.getName_class() + classNames.getName_subject())) {
                         count++;
                     }
                 }
@@ -96,7 +98,7 @@ public class ClassListNewAdapter extends RecyclerView.Adapter<ClassListNewAdapte
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle the error if necessary
             }
         });
     }

@@ -23,10 +23,12 @@
             android:id="@+id/classes_sample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="classes"
-            android:layout_marginLeft="16dp"
+            android:text="Subject"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/theme_light"
-            android:layout_marginRight="16dp"/>
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_main"
@@ -47,25 +49,24 @@
         app:title="Attendance System"
         />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="end"
-        app:fabAnimationMode="scale"
-        app:menu="@menu/bottom_app_bar" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/gradient_theme_oval"
-        app:layout_anchor="@id/bottomAppBar"
-        app:menu="@menu/bottom_app_bar"
-        app:borderWidth="0dp"
-        app:tint="@null"
-        android:contentDescription="TODO" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/gradient_theme_oval"
+            app:borderWidth="0dp"
+            app:tint="@null"
+            android:contentDescription="TODO"
+            app:backgroundTint="@color/theme_accent"
+            app:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

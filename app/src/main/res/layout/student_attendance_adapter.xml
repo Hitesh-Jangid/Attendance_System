@@ -51,6 +51,4 @@
             android:layout_marginLeft="7dp"
             android:text="A"/>
     </RadioGroup>
-
-
 </LinearLayout>

@@ -26,7 +26,6 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
 
     private Context mContext;
     private List<Grade_Names> gradeNamesList;
-    private CardView cardView;
 
     public GradeDetailAdapter(Context mContext, List<Grade_Names> gradeNamesList) {
         this.mContext = mContext;
@@ -45,7 +44,7 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
         Grade_Names grade_names = gradeNamesList.get(position);
         holder.class_name.setVisibility(View.GONE);
         holder.subject_name.setText(grade_names.getName_grade());
-        holder.subject_name.setGravity(View.TEXT_ALIGNMENT_CENTER);
+        holder.subject_name.setGravity(Gravity.CENTER);
         holder.total_students.setVisibility(View.GONE);
 
         // Convert 100dp to pixels

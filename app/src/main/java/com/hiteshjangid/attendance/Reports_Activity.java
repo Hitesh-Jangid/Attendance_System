@@ -3,7 +3,6 @@ package com.hiteshjangid.attendance;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -37,16 +36,15 @@ import io.realm.Realm;
 
 public class Reports_Activity extends AppCompatActivity {
 
-    String subjectName, className, room_ID;
-    Button select_from,select_to,getReports;
-    TextView txt_select_from,txt_select_to;
-    RecyclerView recyclerView;
+    private String subjectName, className, room_ID;
+    private Button select_from, select_to, getReports;
+    private TextView txt_select_from, txt_select_to;
+    private RecyclerView recyclerView;
     private int year, month, day, yearTo, monthTo, dayTo;
-
     private boolean isHoliday;
 
-    List<Attendance_Reports> attendance_reports;
-    ReportsNewAdapter reportsNewAdapter;
+    private List<Attendance_Reports> attendance_reports;
+    private ReportsNewAdapter reportsNewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,74 +68,41 @@ public class Reports_Activity extends AppCompatActivity {
         toolbar.setSubtitle(className);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        Calendar calendar= Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR)+1;
-
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR) + 1;
 
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 7);
-
         recyclerView.setLayoutManager(gridLayoutManager);
+
         attendance_reports = new ArrayList<>();
-        reportsNewAdapter = new ReportsNewAdapter(Reports_Activity.this,attendance_reports);
+        reportsNewAdapter = new ReportsNewAdapter(Reports_Activity.this, attendance_reports,month,year);
         recyclerView.setAdapter(reportsNewAdapter);
 
-        select_from.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDateFrom();
+        select_from.setOnClickListener(v -> setDateFrom());
+
+        select_to.setOnClickListener(v -> setDateTo());
+
+        getReports.setOnClickListener(v -> {
+            String DATE_FROM = day + "-" + month + "-" + year;
+            String DATE_TO = dayTo + "-" + monthTo + "-" + yearTo;
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Date start = null;
+            try {
+                start = dateFormat.parse(DATE_FROM);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        });
-
-        select_to.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDateTo();
+            Date end = null;
+            try {
+                end = dateFormat.parse(DATE_TO);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        });
 
-        getReports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // storing the dates in the format 20-10-2021 as a string
-                String DATE_FROM = day + "-" + month + "-" + year;
-                String DATE_TO = dayTo + "-" + monthTo + "-" + yearTo;
-
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                Date start = null;
-                try {
-                    start = dateFormat.parse(DATE_FROM);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Date end = null;
-                try {
-                    end = dateFormat.parse(DATE_TO);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                //prepare a list of dates to get fulled later
-                List datesInRange = new ArrayList<>();
-
-                //eliminate unusable time intervals like hours,minutes...
-                Calendar calendar = getCalendarWithoutTime(start);
-                Calendar endCalendar = getCalendarWithoutTime(end);
-
-                // get all the dates before the ending date
-                while (calendar.before(endCalendar)) {
-
-                    // prepare a variable to store in
-                    Date result = calendar.getTime();
-                    // reformat the date to be used later and add it to the list then add one day to the latter one
-                    final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(result);
-                    datesInRange.add(date);
-                    calendar.add(Calendar.DATE, 1);
-                }
-                // pass the list of selected dates to this method to read the reports
-                readModifiedReports(datesInRange);
-
-            }
+            List<String> datesInRange = getDatesInRange(start, end);
+            readModifiedReports(datesInRange);
         });
 
         readReports();
@@ -148,23 +113,20 @@ public class Reports_Activity extends AppCompatActivity {
         if (id == 1) {
             return new DatePickerDialog(this, myDateListenerFrom, year, month, day);
         }
-        if (id == 2){
-            return new DatePickerDialog(this,myDateListenerTo,year,month,day);
+        if (id == 2) {
+            return new DatePickerDialog(this, myDateListenerTo, year, month, day);
         }
         return null;
     }
 
     @SuppressWarnings("deprecation")
     public void setDateFrom() {
-        // Get current date
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new DatePickerDialog
         DatePickerDialog dialog = new DatePickerDialog(this, myDateListenerFrom, year, month, day);
-        // Show the dialog
         dialog.show();
     }
 
@@ -172,48 +134,40 @@ public class Reports_Activity extends AppCompatActivity {
     public void setDateTo() {
         showDialog(2);
     }
-    private final DatePickerDialog.OnDateSetListener myDateListenerFrom = new
-            DatePickerDialog.OnDateSetListener() {
 
-                @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // store the selected dates in these variables
-                    year = arg1;
-                    month = arg2 + 1;
-                    day = arg3;
-                    txt_select_from.setText(day+"-"+month+"-"+year);
-                }
-            };
+    private final DatePickerDialog.OnDateSetListener myDateListenerFrom = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            year = arg1;
+            month = arg2 + 1;
+            day = arg3;
+            txt_select_from.setText(day + "-" + month + "-" + year);
+        }
+    };
 
-    private final DatePickerDialog.OnDateSetListener myDateListenerTo = new
-            DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // store the selected dates in these variables
-                    yearTo = arg1;
-                    monthTo = arg2 + 1;
-                    dayTo = arg3;
-                    txt_select_to.setText(dayTo+"-"+monthTo+"-"+yearTo);
-                }
-            };
+    private final DatePickerDialog.OnDateSetListener myDateListenerTo = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            yearTo = arg1;
+            monthTo = arg2 + 1;
+            dayTo = arg3;
+            txt_select_to.setText(dayTo + "-" + monthTo + "-" + yearTo);
+        }
+    };
 
-
-    private void readModifiedReports(List datesInRange) {
+    private void readModifiedReports(List<String> datesInRange) {
         attendance_reports.clear();
         FirebaseDatabase.getInstance().getReference("Attendance_Reports").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Attendance_Reports attendance_report = dataSnapshot.getValue(Attendance_Reports.class);
-                    if (attendance_report.getClassId().equals(room_ID) && datesInRange.contains(attendance_report.getDate())){
+                    if (attendance_report.getClassId().equals(room_ID) && datesInRange.contains(attendance_report.getDate())) {
                         attendance_reports.add(attendance_report);
                     }
                 }
-                reportsNewAdapter = new ReportsNewAdapter(Reports_Activity.this,attendance_reports);
+                reportsNewAdapter = new ReportsNewAdapter(Reports_Activity.this, attendance_reports, month ,year);
                 recyclerView.setAdapter(reportsNewAdapter);
-
             }
 
             @Override
@@ -223,16 +177,15 @@ public class Reports_Activity extends AppCompatActivity {
         });
     }
 
-
     private void readReports() {
         attendance_reports.clear();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance_Reports");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Attendance_Reports attendance_report = dataSnapshot.getValue(Attendance_Reports.class);
-                    if (attendance_report.getClassId().equals(room_ID)){
+                    if (attendance_report.getClassId().equals(room_ID)) {
                         attendance_reports.add(attendance_report);
                     }
                 }
@@ -244,6 +197,21 @@ public class Reports_Activity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private static List<String> getDatesInRange(Date start, Date end) {
+        List<String> datesInRange = new ArrayList<>();
+        Calendar calendar = getCalendarWithoutTime(start);
+        Calendar endCalendar = getCalendarWithoutTime(end);
+
+        while (calendar.before(endCalendar)) {
+            Date result = calendar.getTime();
+            String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(result);
+            datesInRange.add(date);
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        return datesInRange;
     }
 
     private static Calendar getCalendarWithoutTime(Date date) {

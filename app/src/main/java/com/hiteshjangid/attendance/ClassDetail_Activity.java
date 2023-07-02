@@ -458,14 +458,6 @@ public class ClassDetail_Activity extends AppCompatActivity {
         if (dayOfWeek == Calendar.SUNDAY) {
             // Sunday, so don't take attendance and add a message to the report
             String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Attendance_Reports");
-            Attendance_Reports attendance_reports = new Attendance_Reports();
-            attendance_reports.setClassId(room_ID);
-            attendance_reports.setDate(date);
-            attendance_reports.setAttendance_students_lists(null); // Set to null as no attendance taken
-            attendance_reports.setReportMessage("Attendance not taken today, as it's Sunday."); // Add message to report
-            reference.child(date + room_ID).setValue(attendance_reports);
-
             Toast.makeText(ClassDetail_Activity.this, "Attendance not taken today, as it's Sunday.", Toast.LENGTH_SHORT).show();
         } else {
             // Not Sunday, so take attendance as normal

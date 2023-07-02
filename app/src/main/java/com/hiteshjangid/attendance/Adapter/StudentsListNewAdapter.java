@@ -1,6 +1,5 @@
 package com.hiteshjangid.attendance.Adapter;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -34,13 +33,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-
 public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNewAdapter.ViewHolder> {
 
-    Context mContext;
-    List<Students_List> students_lists;
-    final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
-
+    private Context mContext;
+    private List<Students_List> students_lists;
+    private final String date = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(new Date());
 
     public StudentsListNewAdapter(Context mContext, List<Students_List> students_lists) {
         this.mContext = mContext;
@@ -51,7 +48,7 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_attendance_adapter, parent, false);
-        return new StudentsListNewAdapter.ViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -68,7 +65,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                         if (snapshot.exists()) {
                             Attendance_Reports attendance_reports = snapshot.getValue(Attendance_Reports.class);
                             assert attendance_reports != null;
@@ -76,16 +72,13 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                                 holder.radioGroup.setVisibility(View.GONE);
                         } else {
                             holder.radioGroup.setVisibility(View.VISIBLE);
-
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
-
 
         if (holder.radioButton_present.isChecked()) {
             if (!students_lists.isEmpty()) {
@@ -109,9 +102,8 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                         .child("Attendance").child(date)
                         .child(uniqueId).setValue(hashMap);
             }
-
-
         }
+
         holder.radioButton_present.setOnClickListener(view -> {
             if (!students_lists.isEmpty()) {
                 final String attendance = "Present";
@@ -119,7 +111,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
                 editor.putString(students_lists.get(holder.getAbsoluteAdapterPosition()).getRegNo_student(), attendance);
                 editor.apply();
-
 
                 HashMap<Object, String> hashMap = new HashMap<>();
                 String uniqueId = students_lists.get(holder.getAbsoluteAdapterPosition()).getRegNo_student() + students_list.getName_student();
@@ -135,9 +126,7 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                         .child("Attendance").child(date)
                         .child(uniqueId).setValue(hashMap);
             }
-
         });
-
 
         holder.radioButton_absent.setOnClickListener(view -> {
             if (!students_lists.isEmpty()) {
@@ -160,7 +149,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                         .child(students_list.getClass_id()).child("Attendance")
                         .child(date).child(uniqueId).setValue(hashMap);
             }
-
         });
 
         holder.itemView.setOnClickListener(view -> {
@@ -172,10 +160,7 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
             student_edit_sheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetTheme);
             student_edit_sheet.show(((FragmentActivity) view.getContext()).getSupportFragmentManager(), "BottomSheet");
         });
-
-
     }
-
 
     private void checkAttendance(ViewHolder holder, Students_List students_list) {
         String child2 = students_list.getRegNo_student() + students_list.getName_student();
@@ -198,7 +183,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                     editor.putString(students_lists.get(holder.getAbsoluteAdapterPosition()).getRegNo_student(), attendance);
                     editor.apply();
 
-
                     HashMap<Object, String> hashMap = new HashMap<>();
                     String uniqueId = students_lists.get(holder.getAbsoluteAdapterPosition()).getRegNo_student() + students_list.getName_student();
                     hashMap.put("studentName", students_lists.get(holder.getAbsoluteAdapterPosition()).getName_student());
@@ -211,7 +195,6 @@ public class StudentsListNewAdapter extends RecyclerView.Adapter<StudentsListNew
                     FirebaseDatabase.getInstance().getReference("Classes")
                             .child(students_list.getClass_id()).child("Attendance")
                             .child(date).child(uniqueId).setValue(hashMap);
-
                 }
             }
 

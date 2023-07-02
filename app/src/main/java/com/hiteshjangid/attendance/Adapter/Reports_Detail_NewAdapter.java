@@ -21,8 +21,8 @@ import com.hiteshjangid.attendance.model.Attendance_Students_List;
 import java.util.List;
 
 public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Detail_NewAdapter.ViewHolder> {
-    Context mContext;
-    List<Attendance_Students_List> attendance_students_lists;
+    private Context mContext;
+    private List<Attendance_Students_List> attendance_students_lists;
 
     public Reports_Detail_NewAdapter(Context mContext, List<Attendance_Students_List> attendance_students_lists) {
         this.mContext = mContext;
@@ -33,7 +33,7 @@ public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Deta
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_detail_adapter_item, parent, false);
-        return new Reports_Detail_NewAdapter.ViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Deta
 
         holder.namE.setText(attendanceStudentsList.getStudentName());
         holder.regNo.setText(attendanceStudentsList.getStudentRegNo());
-        if (attendanceStudentsList.getAttendance().equals("Present")){
+        if (attendanceStudentsList.getAttendance().equals("Present")) {
             holder.status.setText("P");
             holder.circle.setCardBackgroundColor(mContext.getResources().getColor(R.color.green_new));
-        }else{
+        } else {
             holder.status.setText("A");
             holder.circle.setCardBackgroundColor(mContext.getResources().getColor(R.color.red_new));
         }
@@ -55,24 +55,26 @@ public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Deta
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
                 alertDialog.setTitle("Alert");
-                alertDialog.setMessage("Are you sure you want change student attendance");
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,"yes", new DialogInterface.OnClickListener() {
+                alertDialog.setMessage("Are you sure you want to change student attendance?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DatabaseReference f = FirebaseDatabase.getInstance().getReference("Classes")
+                        DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("Classes")
                                 .child(Common.currentClassName)
-                                .child("Attendance").child(attendanceStudentsList.getDate()).child(attendanceStudentsList.getStudentRegNo()+attendanceStudentsList.getStudentName()).child("attendance");
-                        if (attendanceStudentsList.getAttendance().equals("Present")){
-                            f.setValue("Absent");
+                                .child("Attendance")
+                                .child(attendanceStudentsList.getDate())
+                                .child(attendanceStudentsList.getStudentRegNo() + attendanceStudentsList.getStudentName())
+                                .child("attendance");
 
-                        }else {
-                            f.setValue("Present");
-
+                        if (attendanceStudentsList.getAttendance().equals("Present")) {
+                            attendanceRef.setValue("Absent");
+                        } else {
+                            attendanceRef.setValue("Present");
                         }
                     }
                 });
 
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"Cancel", new DialogInterface.OnClickListener() {
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         alertDialog.dismiss();
@@ -80,10 +82,8 @@ public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Deta
                 });
 
                 alertDialog.show();
-
             }
         });
-
     }
 
     @Override
@@ -91,16 +91,14 @@ public class Reports_Detail_NewAdapter extends RecyclerView.Adapter<Reports_Deta
         return attendance_students_lists.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView namE;
         public TextView regNo;
         public TextView status;
-
         public CardView circle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             namE = itemView.findViewById(R.id.student_name_report_detail_adapter);
             regNo = itemView.findViewById(R.id.student_regNo_report_detail_adapter);
             status = itemView.findViewById(R.id.status_report_detail_adapter);

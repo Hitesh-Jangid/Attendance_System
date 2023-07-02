@@ -1,34 +1,22 @@
 package com.hiteshjangid.attendance.ui.gradeDetail;
 
 
-import androidx.annotation.RequiresApi;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.Manifest;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Toast;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hiteshjangid.attendance.Adapter.GradeDetailAdapter;
-import com.hiteshjangid.attendance.excel.ExportGrade;
 import com.hiteshjangid.attendance.InsertGradeDetailActivity;
 import com.hiteshjangid.attendance.databinding.ActivityGradeDetailBinding;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class GradeDetailActivity extends AppCompatActivity {
 
@@ -54,9 +42,6 @@ public class GradeDetailActivity extends AppCompatActivity {
         gradeDetailViewModel = ViewModelProviders.of(this).get(GradeDetailViewModel.class);
         gradeName = getIntent().getStringExtra("gradeName");
         room_ID = getIntent().getStringExtra("graderoom_ID");
-
-
-        bottomAppBar = binding.bottomAppBar;
         fab_main = binding.fabMain;
 
         recyclerView = binding.recyclerViewMain;

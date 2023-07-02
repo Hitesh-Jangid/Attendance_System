@@ -1,6 +1,5 @@
 package com.hiteshjangid.attendance.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -28,8 +27,6 @@ public class GradeListAdapter extends RecyclerView.Adapter<GradeListAdapter.View
 
     private Context mContext;
     private List<Grade_Names> gradeNamesList;
-    private CardView cardView;
-    private Activity mActivity;
 
     public GradeListAdapter(Context mContext, List<Grade_Names> gradeNamesList) {
         this.mContext = mContext;
