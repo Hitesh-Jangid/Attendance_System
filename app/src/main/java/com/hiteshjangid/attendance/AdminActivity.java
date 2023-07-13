@@ -1,12 +1,12 @@
 package com.hiteshjangid.attendance;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.hiteshjangid.attendance.common.Common;
@@ -15,35 +15,43 @@ import com.hiteshjangid.attendance.ui.grade.HomeActivity;
 
 public class AdminActivity extends AppCompatActivity {
     private ActivityAdminBinding binding;
-    FirebaseAuth auth;
-    ProgressDialog pd;
+    private FirebaseAuth auth;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
         binding = ActivityAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
-        binding.login.setOnClickListener(view -> {
-            pd = new ProgressDialog(AdminActivity.this);
-            pd.setMessage("Please wait..");
-            pd.show();
 
-            String str_password = binding.password.getText().toString();
-            if (TextUtils.isEmpty(str_password)) {
-                Toast.makeText(AdminActivity.this, "All fields are required ", Toast.LENGTH_SHORT).show();
-            } else if (str_password.equals("123")) {
-                Intent intent = new Intent(AdminActivity.this, HomeActivity.class);
-                Common.currentUserType = "admin";
-                pd.dismiss();
-                startActivity(intent);
+        binding.login.setOnClickListener(view -> {
+            String password = binding.password.getText().toString().trim();
+
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(AdminActivity.this, "Please enter the password", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(AdminActivity.this, "Cannot log in", Toast.LENGTH_SHORT).show();
-                pd.dismiss();
+                progressDialog = new ProgressDialog(AdminActivity.this);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();
+
+                authenticateAdmin(password);
             }
         });
     }
 
+    private void authenticateAdmin(String password) {
+        // Replace the following condition with your secure authentication logic
+        if (password.equals("123")) {
+            Intent intent = new Intent(AdminActivity.this, HomeActivity.class);
+            Common.currentUserType = "admin";
+            progressDialog.dismiss();
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(AdminActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+    }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SpecificAttendanceAdapter extends RecyclerView.Adapter<SpecificAttendanceAdapter.MyViewHolder> {
 
-    Context context;
-    List<Attendance_Students_List> attendance_students_lists;
+    private Context context;
+    private List<Attendance_Students_List> attendance_students_lists;
 
     public SpecificAttendanceAdapter(Context context, List<Attendance_Students_List> attendance_students_lists) {
         this.context = context;
@@ -35,13 +35,11 @@ public class SpecificAttendanceAdapter extends RecyclerView.Adapter<SpecificAtte
         Attendance_Students_List model = attendance_students_lists.get(position);
         holder.student_name.setText(model.getStudentName());
         holder.status.setText(model.getAttendance());
-        if(model.getDate() == null){
+        if (model.getDate() == null) {
             holder.date.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             holder.date.setText(model.getDate());
-
         }
-
     }
 
     @Override
@@ -50,8 +48,7 @@ public class SpecificAttendanceAdapter extends RecyclerView.Adapter<SpecificAtte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView student_name,status,id,date;
-
+        TextView student_name, status, id, date;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

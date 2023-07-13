@@ -16,12 +16,18 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_below="@+id/toolbar_reports"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Atendance Reports :"
         android:textColor="@color/theme_light"
-        android:layout_margin="16dp"/>
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/toolbar_reports"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Atendance Reports :" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/title"

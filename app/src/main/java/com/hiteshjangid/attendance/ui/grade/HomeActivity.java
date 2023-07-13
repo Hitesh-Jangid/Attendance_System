@@ -1,14 +1,15 @@
 package com.hiteshjangid.attendance.ui.grade;
 
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,7 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         HomeViewModel homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        bottomAppBar = binding.bottomAppBar;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         fab_main = binding.fabMain;
 

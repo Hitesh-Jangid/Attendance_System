@@ -12,6 +12,7 @@ public class Attendance_Reports {
     String classname;
     String subjName;
     List<Attendance_Students_List> attendance_students_lists;
+    private int month;
 
     public Attendance_Reports() {
     }
@@ -91,13 +92,55 @@ public class Attendance_Reports {
         this.attendance_students_lists = attendance_students_lists;
     }
 
-        private String reportMessage;
+    private String reportMessage;
 
-        public String getReportMessage() {
-            return reportMessage;
-        }
-
-        public void setReportMessage(String reportMessage) {
-            this.reportMessage = reportMessage;
-        }
+    public String getReportMessage() {
+        return reportMessage;
     }
+
+    public void setReportMessage(String reportMessage) {
+        this.reportMessage = reportMessage;
+    }
+
+    private String studentName;
+    private String rollNumber;
+    private String status;
+
+    // Existing constructors, getters, and setters
+
+    // Add the following methods
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getRollNumber() {
+        return rollNumber;
+    }
+
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+
+}
