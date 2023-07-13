@@ -14,8 +14,6 @@ import com.hiteshjangid.attendance.R;
 import com.hiteshjangid.attendance.model.Attendance_Reports;
 import com.hiteshjangid.attendance.ui.reportDetail.Reports_Detail_Activity;
 
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
 import java.util.List;
 
 public class ReportsNewAdapter extends RecyclerView.Adapter<ReportsNewAdapter.ViewHolder> {
@@ -48,8 +46,6 @@ public class ReportsNewAdapter extends RecyclerView.Adapter<ReportsNewAdapter.Vi
         int dayOfMonth = Integer.parseInt(attendanceReport.getDateOnly().split("-")[0]);
         int monthOfYear = month - 1;
         int yearValue = year;
-        String dayOfWeek = getDayOfWeek(yearValue, monthOfYear, dayOfMonth);
-        holder.day.setText(dayOfWeek);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,23 +68,12 @@ public class ReportsNewAdapter extends RecyclerView.Adapter<ReportsNewAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView month;
         public TextView date;
-        public TextView day;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             month = itemView.findViewById(R.id.month_report_adapter);
             date = itemView.findViewById(R.id.date_report_adapter);
-            day = itemView.findViewById(R.id.date_day_report_adapter);
+
         }
-    }
-
-    private String getDayOfWeek(int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day - 1);
-
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        String[] daysOfWeek = new DateFormatSymbols().getWeekdays();
-
-        return daysOfWeek[dayOfWeek];
     }
 }
